@@ -29,7 +29,7 @@ namespace ABus.Test
 
             nodeList.Head.Data.Should().Be("Hello3");
             nodeList.Tail.Data.Should().Be("Hello");
-            this.ValidateOrdering(new[] { "Hello3", "Hello2", "Hello" }, nodeList);
+            ValidateOrdering(new[] { "Hello3", "Hello2", "Hello" }, nodeList);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace ABus.Test
 
             nodeList.Head.Data.Should().Be("Hello");
             nodeList.Tail.Data.Should().Be("Hello");
-            this.ValidateOrdering(new[] { "Hello" }, nodeList);
+            ValidateOrdering(new[] { "Hello" }, nodeList);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace ABus.Test
 
             Assert.Equal("Hello", nodeList.Head.Data);
             Assert.Equal("Hello3", nodeList.Tail.Data);
-            this.ValidateOrdering(new[] { "Hello", "Hello2", "Hello3" }, nodeList);
+            ValidateOrdering(new[] { "Hello", "Hello2", "Hello3" }, nodeList);
         }
         [Fact]
         public void When_calling_AddBefore_with_non_empty_list_adds_new_node_before_specified_node()
@@ -69,7 +69,7 @@ namespace ABus.Test
             nodeList.AddBefore(targetNode, "Hello4");
 
             // Assert
-            this.ValidateOrdering(new[] { "Hello", "Hello4", "Hello2", "Hello3" }, nodeList);
+            ValidateOrdering(new[] { "Hello", "Hello4", "Hello2", "Hello3" }, nodeList);
         }
         [Fact]
         public void When_calling_AddAfter_with_non_empty_list_adds_new_node_after_specified_node()
@@ -83,13 +83,13 @@ namespace ABus.Test
             nodeList.AddAfter(targetNode, "Hello4");
 
             // Assert
-            this.ValidateOrdering(new[] { "Hello", "Hello2", "Hello4", "Hello3" }, nodeList);
+            ValidateOrdering(new[] { "Hello", "Hello2", "Hello4", "Hello3" }, nodeList);
         }
 
-        void ValidateOrdering(string[] array, NodeList<string> nodeList)
+        public static void ValidateOrdering(string[] array, NodeList<string> nodeList)
         {
-            array.Should().ContainInOrder(nodeList.ToArray());
-            array.Reverse().Should().ContainInOrder(nodeList.Reverse().ToArray());
+            array.Should().BeSameAs(nodeList.ToArray());
+            array.Reverse().Should().BeSameAs(nodeList.Reverse().ToArray());
         }
     }
 }

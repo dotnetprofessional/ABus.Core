@@ -92,6 +92,23 @@ namespace ABus.DataStructures
             }
         }
 
+        public IEnumerable<T> Reverse()
+        {
+            foreach (var g in this.Groups)
+            {
+                if (g.Nodes.Tail != null)
+                {
+                    var node = g.Nodes.Tail;
+                    yield return node.Data;
+
+                    while (node.Next != null)
+                    {
+                        node = node.Previous;
+                        yield return node.Data;
+                    }
+                }
+            }
+        }
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
